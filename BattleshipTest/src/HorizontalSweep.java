@@ -34,7 +34,7 @@ public class HorizontalSweep implements SearchStrategy {
 		}
 	}
 
-	public String getStrat() {
+	public String GetStrategy() {
 		return "Horizontal Sweep";
 	}
 

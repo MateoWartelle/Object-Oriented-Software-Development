@@ -42,7 +42,7 @@ public class RandomSearch implements SearchStrategy {
 
 	}
 
-	public String getStrat() {
+	public String GetStrategy() {
 		return "Random Search";
 	}
 

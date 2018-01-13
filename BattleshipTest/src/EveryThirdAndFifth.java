@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class EveryThird implements SearchStrategy {
+public class EveryThirdAndFifth implements SearchStrategy {
 	ArrayList<String> SubmarineCoord = new ArrayList<String>();
 	ArrayList<String> CarrierCoord = new ArrayList<String>();
 	int searchCount;
@@ -70,7 +70,6 @@ public class EveryThird implements SearchStrategy {
 					if (Grid[i][j] == "SUBMARINE") {
 						SubmarineCoord.add("(" + j + "," + i + ")");
 						searchCount++;
-
 					} else if (Grid[i][j] == "CARRIER") {
 						CarrierCoord.add("(" + j + "," + i + ")");
 						searchCount++;
@@ -103,7 +102,6 @@ public class EveryThird implements SearchStrategy {
 					if (Grid[i][j] == "SUBMARINE") {
 						SubmarineCoord.add("(" + j + "," + i + ")");
 						searchCount++;
-
 					} else if (Grid[i][j] == "CARRIER") {
 						CarrierCoord.add("(" + j + "," + i + ")");
 						searchCount++;
@@ -120,7 +118,6 @@ public class EveryThird implements SearchStrategy {
 				if (j < Grid[i].length - 1) {
 					if (Grid[i][j] == "SUBMARINE") {
 						SubmarineCoord.add("(" + j + "," + i + ")");
-
 					} else if (Grid[i][j] == "CARRIER") {
 						CarrierCoord.add("(" + j + "," + i + ")");
 					}
@@ -130,7 +127,7 @@ public class EveryThird implements SearchStrategy {
 
 	}
 
-	public String getStrat() {
+	public String GetStrategy() {
 		return "Every Third and Fifth";
 	}
 

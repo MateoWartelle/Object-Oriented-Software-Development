@@ -61,7 +61,7 @@ public class Main {
 
 	public void Ships() {
 		searchstrategy.find(Grid);
-		System.out.println("Strategy: " + searchstrategy.getStrat());
+		System.out.println("Strategy: " + searchstrategy.GetStrategy());
 		System.out.println(searchstrategy.TotalSearchCounts());
 		System.out.println(searchstrategy.FindCarrier() + " " + searchstrategy.FindSubmarine());
 	}
@@ -72,34 +72,28 @@ public class Main {
 		BattleShipGameplay.initGrid();
 		BattleShipGameplay.readInputFile();
 		BattleShipGameplay.PlaceShips(games.get(i));
-		
 		while (i < 3) {
 			System.out.println("Game " + (i + 1) + ":");
-			BattleShipGameplay.setStrategy(new EveryThird());
+			// Horizontal Sweep
+			BattleShipGameplay.setStrategy(new HorizontalSweep());
 			BattleShipGameplay.initGrid();
 			BattleShipGameplay.readInputFile();
 			BattleShipGameplay.PlaceShips(games.get(i));
 			BattleShipGameplay.Ships();
-			
-			
-			
-			// Horizontal Sweep
-//			BattleShipGameplay.setStrategy(new HorizontalSweep());
-//			BattleShipGameplay.initGrid();
-//			BattleShipGameplay.readInputFile();
-//			BattleShipGameplay.PlaceShips(games.get(i));
-//			BattleShipGameplay.Ships();
-//			
-//			
-//			BattleShipGameplay.setStrategy(new RandomSearch());
-//			BattleShipGameplay.initGrid();
-//			BattleShipGameplay.readInputFile();
-//			BattleShipGameplay.PlaceShips(games.get(i));
-//			BattleShipGameplay.Ships();
-			
+			// Random Search
+			BattleShipGameplay.setStrategy(new RandomSearch());
+			BattleShipGameplay.initGrid();
+			BattleShipGameplay.readInputFile();
+			BattleShipGameplay.PlaceShips(games.get(i));
+			BattleShipGameplay.Ships();
+			// EveryThirdandFifth
+			BattleShipGameplay.setStrategy(new EveryThirdAndFifth());
+			BattleShipGameplay.initGrid();
+			BattleShipGameplay.readInputFile();
+			BattleShipGameplay.PlaceShips(games.get(i));
+			BattleShipGameplay.Ships();
 			i++;
 			
-	
 		}
 
 	}
