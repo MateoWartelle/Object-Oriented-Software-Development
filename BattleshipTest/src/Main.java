@@ -2,13 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.io.File;
-import java.io.FileNotFoundException;
 
-@SuppressWarnings("unused")
 public class Main {
 	String[][] Grid = new String[25][25];
 	SearchStrategy searchstrategy;
-	ArrayList<String> games = new ArrayList<String>();
+	static ArrayList<String> games = new ArrayList<String>();
 
 	public Main() {
 		searchstrategy = new RandomSearch();
@@ -18,9 +16,10 @@ public class Main {
 		searchstrategy = strategy;
 	}
 
-	public String[][] readInputFile(String fileName) {
+	public String[][] readInputFile() {
+		String fileName = "src/input.txt";
 		try {
-			Scanner scanner = new Scanner(fileName);
+			Scanner scanner = new Scanner(new File(fileName));
 			while (scanner.hasNextLine()) {
 				String game = scanner.nextLine();
 				games.add(game);
@@ -28,7 +27,7 @@ public class Main {
 			scanner.close();
 
 		} catch (Exception ex) {
-			System.out.println("Unable to open file '" + fileName + "'");
+			System.out.println("Unable to open file" + fileName + "'");
 			ex.printStackTrace();
 		}
 		return Grid;
@@ -52,8 +51,56 @@ public class Main {
 		}
 	}
 
+	public void initGrid() {
+		for (int row = 0; row < Grid.length; row++) {
+			for (int col = 0; col < Grid.length; col++) {
+				Grid[row][col] = "EMPTY";
+			}
+		}
+	}
+
+	public void Ships() {
+		searchstrategy.find(Grid);
+		System.out.println("Strategy: " + searchstrategy.getStrat());
+		System.out.println(searchstrategy.TotalSearchCounts());
+		System.out.println(searchstrategy.FindCarrier() + " " + searchstrategy.FindSubmarine());
+	}
+
 	public static void main(String[] args) {
-		Main Test = new Main();
+		int i = 0;
+		Main BattleShipGameplay = new Main();
+		BattleShipGameplay.initGrid();
+		BattleShipGameplay.readInputFile();
+		BattleShipGameplay.PlaceShips(games.get(i));
+		
+		while (i < 3) {
+			System.out.println("Game " + (i + 1) + ":");
+			BattleShipGameplay.setStrategy(new EveryThird());
+			BattleShipGameplay.initGrid();
+			BattleShipGameplay.readInputFile();
+			BattleShipGameplay.PlaceShips(games.get(i));
+			BattleShipGameplay.Ships();
+			
+			
+			
+			// Horizontal Sweep
+//			BattleShipGameplay.setStrategy(new HorizontalSweep());
+//			BattleShipGameplay.initGrid();
+//			BattleShipGameplay.readInputFile();
+//			BattleShipGameplay.PlaceShips(games.get(i));
+//			BattleShipGameplay.Ships();
+//			
+//			
+//			BattleShipGameplay.setStrategy(new RandomSearch());
+//			BattleShipGameplay.initGrid();
+//			BattleShipGameplay.readInputFile();
+//			BattleShipGameplay.PlaceShips(games.get(i));
+//			BattleShipGameplay.Ships();
+			
+			i++;
+			
+	
+		}
 
 	}
 }
