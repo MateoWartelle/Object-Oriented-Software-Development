@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 public class Main {
 	String[][] Grid = new String[25][25];
@@ -16,6 +18,10 @@ public class Main {
 		searchstrategy = strategy;
 	}
 
+	/**
+	 * Reads an input file supplied with coordinates of ships Adds each "game"/line
+	 * to ArrayList games
+	 */
 	public String[][] readInputFile() {
 		String fileName = "src/input.txt";
 		try {
@@ -32,6 +38,37 @@ public class Main {
 		}
 		return Grid;
 	}
+
+	/**
+	 * Reads an input file supplied with coordinates of ships and counts the number of
+	 * lines in order to determine how many games total will be played.
+	 */
+	public int GetTotalGames() {
+		String fileName = "src/input.txt";
+		int lineCount = 0;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(fileName));
+			while (true) {
+				String line = reader.readLine();
+				if (line == null) {
+					break;
+				}
+				lineCount++;
+			}
+			reader.close();
+		} catch (Exception ex) {
+			System.out.println("Unable to open file" + fileName + "'");
+			ex.printStackTrace();
+		}
+
+		return lineCount;
+
+	}
+
+	/**
+	 * Places the ships on the Grid based on their size Carrier size = 5, Submarine
+	 * size = 3
+	 */
 
 	public void PlaceShips(String Coord) {
 		int pairCount = 0;
@@ -51,6 +88,10 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Sets up the Grid[2][25] with empty in every cell
+	 */
+
 	public void initGrid() {
 		for (int row = 0; row < Grid.length; row++) {
 			for (int col = 0; col < Grid.length; col++) {
@@ -58,6 +99,11 @@ public class Main {
 			}
 		}
 	}
+
+	/**
+	 * Applies many of the interface functions to the grid Prints the Strategy,
+	 * TotalCount, Positions of Submarine & Carrier to the console
+	 */
 
 	public void Ships() {
 		searchstrategy.find(Grid);
@@ -71,8 +117,9 @@ public class Main {
 		Main BattleShipGameplay = new Main();
 		BattleShipGameplay.initGrid();
 		BattleShipGameplay.readInputFile();
+		int TotalGames = BattleShipGameplay.GetTotalGames();
 		BattleShipGameplay.PlaceShips(games.get(i));
-		while (i < 3) {
+		while (i < TotalGames) {
 			System.out.println("Game " + (i + 1) + ":");
 			// Horizontal Sweep
 			BattleShipGameplay.setStrategy(new HorizontalSweep());
@@ -93,7 +140,7 @@ public class Main {
 			BattleShipGameplay.PlaceShips(games.get(i));
 			BattleShipGameplay.Ships();
 			i++;
-			
+
 		}
 
 	}

@@ -19,7 +19,6 @@ public class EveryThirdAndFifth implements SearchStrategy {
 					}
 					if (Grid[row][column] == "CARRIER") {
 						CarrierCoord.add("(" + column + "," + row + ")");
-						
 						CheckUp(Grid, row, column);
 						CheckDown(Grid, row, column);
 						CheckLeft(Grid, row, column);

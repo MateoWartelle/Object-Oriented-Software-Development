@@ -39,7 +39,6 @@ public class RandomSearch implements SearchStrategy {
 			if(h8.hashCode() < h9.hashCode()) return -1;
 			return 0;	
 		});
-
 	}
 
 	public String GetStrategy() {
