@@ -89,7 +89,7 @@ public class Main {
 	}
 
 	/**
-	 * Sets up the Grid[2][25] with empty in every cell
+	 * Sets up the Grid[25][25] with "EMPTY" in every cell
 	 */
 
 	public void initGrid() {
