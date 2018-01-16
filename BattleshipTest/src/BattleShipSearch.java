@@ -5,12 +5,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class Main {
+public class BattleShipSearch {
 	String[][] Grid = new String[25][25];
 	SearchStrategy searchstrategy;
 	static ArrayList<String> games = new ArrayList<String>();
 
-	public Main() {
+	public BattleShipSearch() {
 		searchstrategy = new RandomSearch();
 	}
 
@@ -114,7 +114,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		int i = 0;
-		Main BattleShipGameplay = new Main();
+		BattleShipSearch BattleShipGameplay = new BattleShipSearch();
 		BattleShipGameplay.initGrid();
 		BattleShipGameplay.readInputFile();
 		int TotalGames = BattleShipGameplay.GetTotalGames();
