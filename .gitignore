@@ -1,0 +1,16 @@
+*.DS_Store
+*.xml
+*.setup
+*.lock
+/.metadata/
+.recommenders/
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
