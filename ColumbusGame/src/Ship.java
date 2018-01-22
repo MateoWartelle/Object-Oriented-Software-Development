@@ -4,30 +4,39 @@ import java.util.Scanner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 @SuppressWarnings("unused")
 public class Ship {
-	private Point x;
-	private Point y;
-	
-	public Ship() {
-		
-	}
-	public Ship(Point x, Point y) {
-		this.x = x;
-		this.y = y;
-	}
-	public Point getShipLocation() {
-		return x;
-		
-	}
-	  public String toString() {
-	        return "(" + x + ", " + y + ")";
-	    } 
+	Point currentLocation;
+	OceanMap oceanMap;
 
 	public Ship(OceanMap oceanMap) {
-		// TODO Auto-generated constructor stub
+		this.oceanMap = oceanMap;
+		currentLocation = oceanMap.getShipLocation();
 	}
 	
+	public Point getShipLocation() {
+		return currentLocation;
+	}
+
+	public void goEast() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void goWest() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void goNorth() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void goSouth() {
+		// TODO Auto-generated method stub
+		
+	}
+		
 	
 }

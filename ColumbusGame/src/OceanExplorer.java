@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.util.Random;
 
 @SuppressWarnings("unused")
 public class OceanExplorer extends Application {
@@ -23,16 +24,15 @@ public class OceanExplorer extends Application {
 	ImageView shipImageView;
 	AnchorPane root;
 	Scene scene;
-	// Ship ship;
+	Ship ship;
 
 	public void loadShipImage() {
-		Image shipImage = new Image("src/ship.png", 50, 50, true, true);
 		try {
-			ImageView shipImageView = new ImageView(shipImage);
-			//shipImageView.setX(OceanMap.getShipLocation().x * scale);
-			// shipImageView.setY(OceanMap.getShipLocation().y * scale);
+			Image shipImage = new Image("ship.png", 50, 50, true, true);
+			shipImageView = new ImageView(shipImage);
+			shipImageView.setX(oceanMap.getShipLocation().x * scale);
+			shipImageView.setY(oceanMap.getShipLocation().y * scale);
 			root.getChildren().add(shipImageView);
-
 		} catch (Exception ex) {
 			System.out.println("Unable to open file" + shipImage + "'");
 			ex.printStackTrace();
@@ -47,6 +47,8 @@ public class OceanExplorer extends Application {
 				rect.setFill(Color.PALETURQUOISE); // I like this color better than BLUE
 				root.getChildren().add(rect); // Add to the node tree in the pane
 			}
+			ship = new Ship(oceanMap);
+			loadShipImage();
 		}
 	}
 
@@ -54,23 +56,26 @@ public class OceanExplorer extends Application {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {
-				switch(ke.getCode()) {
+				switch (ke.getCode()) {
 				case RIGHT:
-					System.out.println("Going Right");
+					ship.goEast();
 					break;
 				case LEFT:
-					System.out.println("Going LEFT");
+					ship.goWest();
 					break;
 				case UP:
-					System.out.println("Going UP");
+					ship.goNorth();
 					break;
 				case DOWN:
-					System.out.println("Going Down");
+					ship.goSouth();
 					break;
 				default:
 					break;
 				}
 				
+				shipImageView.setX(ship.getShipLocation().x * scale);
+				shipImageView.setY(ship.getShipLocation().y * scale);
+
 			}
 		});
 
@@ -82,8 +87,8 @@ public class OceanExplorer extends Application {
 		islandMap = oceanMap.getMap();
 		root = new AnchorPane();
 		drawMap();
-		// ship = new Ship(oceanMap);
-		// loadShipImage();
+		ship = new Ship(oceanMap);
+		loadShipImage();
 		Scene scene = new Scene(root, 500, 500);
 		OceanStage.setTitle("Columbus Game");
 		OceanStage.setScene(scene);
