@@ -20,8 +20,14 @@ public class OceanExplorer extends Application {
 	final int islandCount = 10;
 	final int scale = 50;
 	OceanMap oceanMap;
+	
 	Image shipImage;
 	ImageView shipImageView;
+	Image islandImage;
+	ImageView islandImageView;
+	Image pirateShipImage;
+	ImageView pirateShipImageView;
+	
 	AnchorPane root;
 	Scene scene;
 	Ship ship;
@@ -39,6 +45,20 @@ public class OceanExplorer extends Application {
 		}
 	}
 
+	private void loadIslandImage() {
+		try {
+			Image islandImage = new Image("pirateIsland.png", 50, 50, true, true);
+			islandImageView = new ImageView(islandImage);
+			islandImageView.setX(oceanMap.getIslandLocation().x * scale);
+			islandImageView.setX(oceanMap.getIslandLocation().y * scale);
+			root.getChildren().add(islandImageView);
+		} catch (Exception ex) {
+			System.out.println("Unable to open file" + islandImage + "'");
+			ex.printStackTrace();
+		}
+
+	}
+
 	public void drawMap() {
 		for (int x = 0; x < dimension; x++) {
 			for (int y = 0; y < dimension; y++) {
@@ -51,12 +71,15 @@ public class OceanExplorer extends Application {
 			loadShipImage();
 		}
 	}
+	public void reset_grid_button() {
+		
+	}
 
 	public void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(KeyEvent ke) {
-				switch (ke.getCode()) {
+			public void handle(KeyEvent key) {
+				switch (key.getCode()) {
 				case RIGHT:
 					ship.goEast();
 					break;
@@ -72,13 +95,10 @@ public class OceanExplorer extends Application {
 				default:
 					break;
 				}
-				
 				shipImageView.setX(ship.getShipLocation().x * scale);
 				shipImageView.setY(ship.getShipLocation().y * scale);
-
 			}
 		});
-
 	}
 
 	@Override
@@ -89,7 +109,17 @@ public class OceanExplorer extends Application {
 		drawMap();
 		ship = new Ship(oceanMap);
 		loadShipImage();
-		Scene scene = new Scene(root, 500, 500);
+		Button reset = new Button();
+		reset.setText("Reset");
+		reset.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				reset_grid_button();	
+			}
+		});
+		
+		Scene scene = new Scene(root, 500, 600);
+		root.getChildren().add(reset);
 		OceanStage.setTitle("Columbus Game");
 		OceanStage.setScene(scene);
 		OceanStage.show();
