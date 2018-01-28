@@ -3,30 +3,30 @@ import java.util.Random;
 
 import javafx.stage.Stage;
 
+@SuppressWarnings("unused")
 public class OceanMap {
-	boolean[][] Grid = new boolean[10][10];
+	int[][] Grid = new int[10][10];
 	Point shipLocation;
-	boolean[][] islands;
+	Point pirateLocation;
+	//boolean[][] islands;
 	int dimension;
 	int islandCount;
 	int size;
 	Random rand = new Random();
-	
-	
 
 	public OceanMap(int dimension, int islandCount) {
 		this.dimension = dimension;
 		this.islandCount = islandCount;
 		CreateGrid();
-		placeIslands();
+		createIslands();
 		shipLocation = placeShip();
 	}
 
 	private void CreateGrid() {
-		islands = new boolean[dimension][dimension];
+		Grid = new int[dimension][dimension];
 		for (int x = 0; x < dimension; x++)
 			for (int y = 0; y < dimension; y++)
-				islands[x][y] = false;
+				Grid[x][y] = 0;
 
 	}
 
@@ -37,26 +37,27 @@ public class OceanMap {
 		while (!placeShip) {
 			x = rand.nextInt(dimension);
 			y = rand.nextInt(dimension);
-			if (islands[x][y] == false) {
+			if (Grid[x][y] == 0) {
 				placeShip = true;
 			}
 		}
 		return new Point(x, y);
 	}
 
-	private void placeIslands() {
-		int islandsToPlace = islandCount;
-		while (islandsToPlace > 0) {
+	public void createIslands() {
+		int i = islandCount;
+		while (i > 0) {
 			int x = rand.nextInt(dimension);
 			int y = rand.nextInt(dimension);
-			if (islands[x][y] == false) {
-				islands[x][y] = true;
-				islandsToPlace--;
+			if (Grid[x][y] == 0) {
+				Grid[x][y] = 1;
+				i--;
 			}
+
 		}
 	}
 
-	public boolean[][] getMap() {
+	public int[][] getMap() {
 		return Grid;
 	}
 
@@ -64,13 +65,16 @@ public class OceanMap {
 		return shipLocation;
 
 	}
-
-	public boolean check_if_ocean(int x, int y) {
-		if (!islands[x][y])
-			return true;
-		else
-			return false;
+	public Point getPirateLocation() {
+		return pirateLocation;
 	}
+
+//	public boolean check_if_ocean(int x, int y) {
+//		if (!islands[x][y])
+//			return true;
+//		else
+//			return false;
+//	}
 
 	public int getDimensions() {
 		return dimension;
@@ -80,13 +84,22 @@ public class OceanMap {
 		return shipLocation;
 	}
 
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
+	public boolean isIsland(int x, int y) {
+		if (Grid[x][y] == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public boolean isIsland(int x, int i) {
-		// TODO Auto-generated method stub
-		return false;
+	public Point placePirates() {
+		int x = 0;
+		int y = 0;
+		x = rand.nextInt(dimension);
+		y = rand.nextInt(dimension);
+		if (Grid[x][y] == 0) {
+			Grid[x][y] = 2;
+		}
+		return new Point(x, y);
 	}
 }
