@@ -3,27 +3,32 @@ import javafx.scene.input.KeyEvent;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ToolBar;
-
 import java.awt.Point;
+import java.util.Optional;
 import java.util.Random;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.application.Platform;
 
 @SuppressWarnings("unused")
 public class OceanExplorer extends Application {
+
+	protected static final Stage OceanStage = null;
 	int[][] islandMap;
 	final int dimension = 10;
 	final int islandCount = 10;
 	final int scale = 50;
 	OceanMap oceanMap;
-
 	Image shipImage;
 	ImageView shipImageView;
 	Image islandImage;
@@ -31,10 +36,13 @@ public class OceanExplorer extends Application {
 	Image pirateShipImage;
 	ImageView pirateShipImageView;
 	PirateShip pirateShip;
-
+	PirateShip secondpirateShip;
+	ImageView secondpirateShipImageView;
+	Image secondpirateShipImage;
 	AnchorPane root;
 	Scene scene;
 	Ship ship;
+	boolean GameOver = false;
 
 	public void loadShipImage() {
 		try {
@@ -51,7 +59,7 @@ public class OceanExplorer extends Application {
 
 	private void loadIslandImage(int x, int y) {
 		try {
-			Image islandImage = new Image("pirateIsland.PNG", 50, 50, true, true);
+			Image islandImage = new Image("island.jpg", 50, 50, true, true);
 			islandImageView = new ImageView(islandImage);
 			islandImageView.setX(x * scale);
 			islandImageView.setY(y * scale);
@@ -78,6 +86,21 @@ public class OceanExplorer extends Application {
 
 	}
 
+	private void loadSecondPirateShipImage() {
+		try {
+			Image secondpirateShipImage = new Image("pirateShip.png", 50, 50, true, true);
+			secondpirateShipImageView = new ImageView(secondpirateShipImage);
+			secondpirateShipImageView.setX(secondpirateShip.getPirateLocation2().x * scale);
+			secondpirateShipImageView.setY(secondpirateShip.getPirateLocation2().y * scale);
+			root.getChildren().add(secondpirateShipImageView);
+
+		} catch (Exception ex) {
+			System.out.println("Unable to open file" + pirateShipImage + "'");
+			ex.printStackTrace();
+		}
+
+	}
+
 	public void drawMap() {
 		for (int x = 0; x < dimension; x++) {
 			for (int y = 0; y < dimension; y++) {
@@ -90,10 +113,6 @@ public class OceanExplorer extends Application {
 				}
 			}
 		}
-	}
-
-	public void reset_grid_button() {
-		
 	}
 
 	public void navigation() {
@@ -116,10 +135,26 @@ public class OceanExplorer extends Application {
 				default:
 					break;
 				}
+				//System.out.println("Pirate Ship 2's : " + pirateShip.getPirateLocation2().toString());
 				updatePictures(shipImageView, ship.getShipLocation());
 				updatePictures(pirateShipImageView, pirateShip.getPirateLocation());
+				updatePictures(secondpirateShipImageView, pirateShip.getPirateLocation2());
+
+				//System.out.println("Ship's Location : " + ship.getShipLocation().toString());
+				//System.out.println("Pirate Ship 1's Location : " + pirateShip.getPirateLocation().toString());
+				//System.out.println("Pirate Ship 2's : " + pirateShip.getPirateLocation2().toString());
+
+				if (ship.getShipLocation().equals(pirateShip.getPirateLocation())
+						|| ship.getShipLocation().equals(pirateShip.getPirateLocation2())) {
+					//System.out.println("GameOver");
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Game Over");
+					alert.setHeaderText("The pirateships got you. Press Reset to ty again");
+					Optional<ButtonType> result = alert.showAndWait();
+				}
 
 			}
+
 		});
 
 	}
@@ -136,32 +171,33 @@ public class OceanExplorer extends Application {
 		root = new AnchorPane();
 		drawMap();
 		ship = new Ship(oceanMap);
-
 		pirateShip = new PirateShip(oceanMap);
+		secondpirateShip = new PirateShip(oceanMap);
 		ship.addObserver(pirateShip);
-
 		loadPirateShipImage();
+		loadSecondPirateShipImage();
 		loadShipImage();
 		Button reset = new Button();
-		ToolBar toolBar = new ToolBar(new Button("Reset"));
-		
-		
-
+		AnchorPane.setBottomAnchor(reset, 0.0);
 		reset.setText("Reset");
-		reset.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				reset_grid_button();
+		reset.setMinWidth(500);
+		reset.setMaxWidth(500);
+		reset.setOnAction(e -> {
+			OceanExplorer app = new OceanExplorer();
+			try {
+				app.start(OceanStage);
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
-
-		scene = new Scene(root, 500, 500);
-		root.getChildren().add(toolBar);
+		scene = new Scene(root, 500, 525);
+		root.getChildren().add(reset);
 		OceanStage.setTitle("Columbus Game");
 		OceanStage.setScene(scene);
+		OceanStage.setResizable(false);
+		OceanStage.sizeToScene();
 		OceanStage.show();
 		navigation();
-
 	}
 
 	public static void main(String[] args) {

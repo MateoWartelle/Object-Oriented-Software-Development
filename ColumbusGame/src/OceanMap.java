@@ -6,9 +6,10 @@ import javafx.stage.Stage;
 @SuppressWarnings("unused")
 public class OceanMap {
 	int[][] Grid = new int[10][10];
+	int numberofPirates = 2;
 	Point shipLocation;
 	Point pirateLocation;
-	//boolean[][] islands;
+	Point pirateLocation2;
 	int dimension;
 	int islandCount;
 	int size;
@@ -20,6 +21,8 @@ public class OceanMap {
 		CreateGrid();
 		createIslands();
 		shipLocation = placeShip();
+		pirateLocation = placePirates();
+		pirateLocation2 = placePirates();
 	}
 
 	private void CreateGrid() {
@@ -40,6 +43,17 @@ public class OceanMap {
 			if (Grid[x][y] == 0) {
 				placeShip = true;
 			}
+		}
+		return new Point(x, y);
+	}
+
+	public Point placePirates() {
+		int x = 0;
+		int y = 0;
+		x = rand.nextInt(dimension);
+		y = rand.nextInt(dimension);
+		if (Grid[x][y] == 0) {
+			Grid[x][y] = 2;
 		}
 		return new Point(x, y);
 	}
@@ -65,16 +79,10 @@ public class OceanMap {
 		return shipLocation;
 
 	}
+
 	public Point getPirateLocation() {
 		return pirateLocation;
 	}
-
-//	public boolean check_if_ocean(int x, int y) {
-//		if (!islands[x][y])
-//			return true;
-//		else
-//			return false;
-//	}
 
 	public int getDimensions() {
 		return dimension;
@@ -90,16 +98,5 @@ public class OceanMap {
 		} else {
 			return false;
 		}
-	}
-
-	public Point placePirates() {
-		int x = 0;
-		int y = 0;
-		x = rand.nextInt(dimension);
-		y = rand.nextInt(dimension);
-		if (Grid[x][y] == 0) {
-			Grid[x][y] = 2;
-		}
-		return new Point(x, y);
 	}
 }

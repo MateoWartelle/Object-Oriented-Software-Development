@@ -25,7 +25,7 @@ public class PirateShip implements Observer {
 		return pirateLocation;
 	}
 
-	public Point getPirateLocation1() {
+	public Point getPirateLocation2() {
 		return pirateLocation2;
 	}
 
@@ -35,9 +35,11 @@ public class PirateShip implements Observer {
 		if (observable instanceof Ship) {
 			currentLocation = ((Ship) observable).getShipLocation();
 			Piratemovement();
-		}
+			Pirate2movement();
+			
+		}	
 	}
-
+	
 	public void Piratemovement() {
 		if ((pirateLocation.x - currentLocation.x < 0)
 				&& (ocean.isIsland(pirateLocation.x + 1, pirateLocation.y)) == false) {
@@ -53,6 +55,25 @@ public class PirateShip implements Observer {
 		} else if ((pirateLocation.y - currentLocation.y > 0)
 				&& (ocean.isIsland(pirateLocation.x, pirateLocation.y - 1) == false)) {
 			pirateLocation.y--;
+		}
+
+	}
+
+	public void Pirate2movement() {
+		if ((pirateLocation2.x - currentLocation.x < 0)
+				&& (ocean.isIsland(pirateLocation2.x + 1, pirateLocation2.y)) == false) {
+			pirateLocation2.x++;
+		} else if ((pirateLocation2.x - currentLocation.x > 0)
+				&& (ocean.isIsland(pirateLocation2.x - 1, pirateLocation2.y)) == false) {
+			pirateLocation2.x--;
+		}
+
+		if ((pirateLocation2.y - currentLocation.y < 0)
+				&& (ocean.isIsland(pirateLocation2.x, pirateLocation2.y + 1) == false)) {
+			pirateLocation2.y++;
+		} else if ((pirateLocation2.y - currentLocation.y > 0)
+				&& (ocean.isIsland(pirateLocation2.x, pirateLocation2.y - 1) == false)) {
+			pirateLocation2.y--;
 		}
 	}
 }
