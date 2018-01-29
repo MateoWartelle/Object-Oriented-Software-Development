@@ -43,7 +43,9 @@ public class OceanExplorer extends Application {
 	Scene scene;
 	Ship ship;
 	boolean GameOver = false;
-
+	/*
+	 * Loads Ship Image
+	 */
 	public void loadShipImage() {
 		try {
 			Image shipImage = new Image("ship.png", 50, 50, true, true);
@@ -56,7 +58,9 @@ public class OceanExplorer extends Application {
 			ex.printStackTrace();
 		}
 	}
-
+	/* 
+	 * Loads Island Image
+	 */
 	private void loadIslandImage(int x, int y) {
 		try {
 			Image islandImage = new Image("island.jpg", 50, 50, true, true);
@@ -70,7 +74,9 @@ public class OceanExplorer extends Application {
 		}
 
 	}
-
+	/* 
+	 * Loads PirateShip#1 Image
+	 */
 	private void loadPirateShipImage() {
 		try {
 			Image pirateShipImage = new Image("pirateShip.png", 50, 50, true, true);
@@ -85,7 +91,9 @@ public class OceanExplorer extends Application {
 		}
 
 	}
-
+	/* 
+	 * Loads PirateShip#2 Image
+	 */
 	private void loadSecondPirateShipImage() {
 		try {
 			Image secondpirateShipImage = new Image("pirateShip.png", 50, 50, true, true);
@@ -100,7 +108,9 @@ public class OceanExplorer extends Application {
 		}
 
 	}
-
+	/* 
+	 * Draws the cells of the map
+	 */
 	public void drawMap() {
 		for (int x = 0; x < dimension; x++) {
 			for (int y = 0; y < dimension; y++) {
@@ -114,8 +124,15 @@ public class OceanExplorer extends Application {
 			}
 		}
 	}
-
+	/* 
+	 * Navigates the ship with keypresses
+	 * checks if game is over and prompts Game Over and to press Reset
+	 */
 	public void navigation() {
+//		System.out.println("Ship's Location : " + ship.getShipLocation().toString());
+//		System.out.println("Pirate Ship 1's Location : " + pirateShip.getPirateLocation().toString());
+//		System.out.println("Pirate Ship 2's : " + pirateShip.getPirateLocation2().toString());
+//		System.out.println("----------------------------------------------");
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent key) {
@@ -135,14 +152,13 @@ public class OceanExplorer extends Application {
 				default:
 					break;
 				}
-				//System.out.println("Pirate Ship 2's : " + pirateShip.getPirateLocation2().toString());
 				updatePictures(shipImageView, ship.getShipLocation());
 				updatePictures(pirateShipImageView, pirateShip.getPirateLocation());
 				updatePictures(secondpirateShipImageView, pirateShip.getPirateLocation2());
-
-				//System.out.println("Ship's Location : " + ship.getShipLocation().toString());
-				//System.out.println("Pirate Ship 1's Location : " + pirateShip.getPirateLocation().toString());
-				//System.out.println("Pirate Ship 2's : " + pirateShip.getPirateLocation2().toString());
+//				System.out.println("Ship's Location : " + ship.getShipLocation().toString());
+//				System.out.println("Pirate Ship 1's Location : " + pirateShip.getPirateLocation().toString());
+//				System.out.println("Pirate Ship 2's : " + pirateShip.getPirateLocation2().toString());
+//				System.out.println("----------------------------------------------");
 
 				if (ship.getShipLocation().equals(pirateShip.getPirateLocation())
 						|| ship.getShipLocation().equals(pirateShip.getPirateLocation2())) {
@@ -158,7 +174,9 @@ public class OceanExplorer extends Application {
 		});
 
 	}
-
+	/* 
+	 * Updates Images to make sure images say with the object
+	 */
 	public void updatePictures(ImageView imageview, Point coords) {
 		imageview.setX(coords.x * scale);
 		imageview.setY(coords.y * scale);

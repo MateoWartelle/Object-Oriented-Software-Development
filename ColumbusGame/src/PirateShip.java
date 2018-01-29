@@ -17,8 +17,8 @@ public class PirateShip implements Observer {
 
 	public PirateShip(OceanMap oceanMap) {
 		this.ocean = oceanMap;
-		pirateLocation = oceanMap.placePirates();
-		pirateLocation2 = oceanMap.placePirates();
+		pirateLocation = oceanMap.getPirateLocation();
+		pirateLocation2 = oceanMap.getPirateLocation2();
 	}
 
 	public Point getPirateLocation() {
@@ -28,7 +28,9 @@ public class PirateShip implements Observer {
 	public Point getPirateLocation2() {
 		return pirateLocation2;
 	}
-
+	/* 
+	 * Updates the PirateMovement and Pirate2Movement based on the Ship's movement
+	 */
 	@Override
 	public void update(Observable observable, Object objectobserving) {
 
@@ -39,7 +41,9 @@ public class PirateShip implements Observer {
 			
 		}	
 	}
-	
+	/*
+	 * Moves the pirateShip while checking if the next position is NOT an Island
+	 */
 	public void Piratemovement() {
 		if ((pirateLocation.x - currentLocation.x < 0)
 				&& (ocean.isIsland(pirateLocation.x + 1, pirateLocation.y)) == false) {
@@ -58,7 +62,9 @@ public class PirateShip implements Observer {
 		}
 
 	}
-
+	/* 
+	 * Moves the pirateShip while checking if the next position is NOT an Island
+	 */
 	public void Pirate2movement() {
 		if ((pirateLocation2.x - currentLocation.x < 0)
 				&& (ocean.isIsland(pirateLocation2.x + 1, pirateLocation2.y)) == false) {

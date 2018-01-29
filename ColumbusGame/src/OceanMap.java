@@ -24,7 +24,9 @@ public class OceanMap {
 		pirateLocation = placePirates();
 		pirateLocation2 = placePirates();
 	}
-
+	/* 
+	 * Creates the Grid, Sets all cells to 0
+	 */
 	private void CreateGrid() {
 		Grid = new int[dimension][dimension];
 		for (int x = 0; x < dimension; x++)
@@ -32,7 +34,9 @@ public class OceanMap {
 				Grid[x][y] = 0;
 
 	}
-
+	/* 
+	 * Places the ship at one random Point
+	 */
 	public Point placeShip() {
 		boolean placeShip = false;
 		int x = 0;
@@ -46,7 +50,9 @@ public class OceanMap {
 		}
 		return new Point(x, y);
 	}
-
+	/* 
+	 * Places the pirates at random Points
+	 */
 	public Point placePirates() {
 		int x = 0;
 		int y = 0;
@@ -57,7 +63,9 @@ public class OceanMap {
 		}
 		return new Point(x, y);
 	}
-
+	/* 
+	 * Places Islands on the map at random
+	 */
 	public void createIslands() {
 		int i = islandCount;
 		while (i > 0) {
@@ -83,7 +91,13 @@ public class OceanMap {
 	public Point getPirateLocation() {
 		return pirateLocation;
 	}
+	
+	public Point getPirateLocation2() {
+		return pirateLocation2;
+	}
 
+	//pirateLocation2 = placePirates();
+	
 	public int getDimensions() {
 		return dimension;
 	}
