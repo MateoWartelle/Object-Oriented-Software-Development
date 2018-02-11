@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -25,6 +26,7 @@ public class GardenLayout extends Application {
 		flower flower2 = new flower(new Point2D(45, 40), Color.ORANGE, true);
 		flower flower3 = new flower(new Point2D(65, 40), Color.RED, true);
 		flower flower4 = new flower(new Point2D(85, 40), Color.BLUE, true);
+		
 		
 		gardenbed gardenbed = new gardenbed(new Point2D(20, 115), Color.TAN, true);
 		flower vegetable = new flower(new Point2D(25, 80), Color.GREENYELLOW, true);
@@ -78,6 +80,7 @@ public class GardenLayout extends Application {
 		root = new AnchorPane();
 		scene = new Scene(root, 600, 400);
 		scene.setFill(Color.GREEN);
+		
 		root.getChildren().add(flowerHolder);
 		root.getChildren().add(Flowers);
 		root.getChildren().add(Vegetables);
@@ -104,7 +107,6 @@ public class GardenLayout extends Application {
 						double deltaX = clickPoint.getX() - lastPosition.getY();
 						double deltaY = clickPoint.getY() - lastPosition.getY();
 						flower.move(deltaX, deltaY);
-						
 					}
 					break;
 				}
@@ -114,9 +116,8 @@ public class GardenLayout extends Application {
 		};
 
 		scene.setOnMouseDragged(mouseHandler);
-		scene.setOnMouseReleased(mouseHandler);
-		scene.setOnMousePressed(mouseHandler);
-		scene.setCursor(Cursor.HAND);
+		
+		
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Garden Layout");
