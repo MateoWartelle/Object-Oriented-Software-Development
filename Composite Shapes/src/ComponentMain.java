@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 public class ComponentMain extends Application {
 	
 	Point2D lastPosition = null;
-
 	private final double circle_radius = 12; 
 	private final int rectangle_width = 150; 
 	private final int rectangle_height = 150; 
@@ -22,9 +21,7 @@ public class ComponentMain extends Application {
 	Pane root;
 	Component shape;
 	ArrayList<Component> Shapes = new ArrayList<>();
-	
 	boolean dragging = false;
-	
 	Composite rectangle;
 	DragCircle circle;
 	
@@ -77,7 +74,23 @@ public class ComponentMain extends Application {
 			lastPosition = clickPoint;
 		}
 	};
-
+	private Component getShape(Point2D point) {
+		Iterator<Component> i = Shapes.iterator();
+		Component returned_component = null;
+		while(i.hasNext()) {
+			Component temp = i.next();
+			if(temp instanceof Composite) {
+				if(((Composite) temp).contains(point))
+					returned_component = temp;
+			}
+			if(temp instanceof DragCircle) {
+				if(((DragCircle) temp).contains(point))
+					returned_component = temp;
+			}
+		}
+		return returned_component;
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		root = new AnchorPane();
@@ -88,23 +101,6 @@ public class ComponentMain extends Application {
 		scene.setOnMousePressed (mouseHandler); 
 		stage.show();
 		
-	}
-	
-	private Component getShape(Point2D point) {
-		Iterator<Component> i = Shapes.iterator();
-		Component returner = null;
-		while(i.hasNext()) {
-			Component temp = i.next();
-			if(temp instanceof Composite) {
-				if(((Composite) temp).contains(point))
-					returner = temp;
-			}
-			if(temp instanceof DragCircle) {
-				if(((DragCircle) temp).contains(point))
-					returner = temp;
-			}
-		}
-		return returner;
 	}
 	
 	public static void main(String[] args) {

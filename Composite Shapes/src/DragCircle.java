@@ -5,10 +5,8 @@ import javafx.scene.shape.Circle;
 public class DragCircle extends Circle implements Component{
 	Color circleColor;
 
-	
 	public DragCircle(Point2D p, double r, Color c) {
 		super(p.getX(), p.getY(), r);
-		
 		this.circleColor = c;
 		this.setFill(circleColor);
 	}
@@ -25,7 +23,5 @@ public class DragCircle extends Circle implements Component{
 	public Point2D getLocation() {
 		Point2D p = new Point2D(this.getCenterX(), this.getCenterY());
 		return p;
-	}
-	
-	
+	}	
 }
