@@ -43,11 +43,10 @@ public class ComponentMain extends Application {
 				}
 				break;
 			
-			
 			case("MOUSE_RELEASED"):
 					if(shape == null) {
 						if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-							DragCircle circle = new DragCircle(clickPoint,circle_radius,Color.BLACK);
+							DragCircle circle = new DragCircle(clickPoint, circle_radius,Color.BLACK);
 							Shapes.add(circle);
 							root.getChildren().add(circle);
 						}
